@@ -13,12 +13,9 @@ export const LeastConstrainingValuesStrategy = {
      */
     get(model, key) {
         const domain = model.DomainOf(key);
-        return domain.values.map(v => {
-                return { v: v, c: model.Conflicts(key, v) };
-        }).sort((a, b) => {
-            if (a.c === b.c) return 0;
-            if (a.c > b.c) return 1;
-            return -1;
-        });
+        return domain.values
+            .map(v => ({ v: v, c: model.Conflicts(key, v) }))
+            .sortDescending(e => e.c)
+            .map(o => o.v);
     }
 }

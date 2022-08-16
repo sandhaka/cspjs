@@ -74,7 +74,7 @@ export class Model {
      * @constructor
      */
     IsResolved() {
-        return this.variables.every(v => v.IsAssigned() && this.Conflicts(v.key, v.value) === 0);
+        return this.variables.every(v => v.IsAssigned());
     }
 
     /**

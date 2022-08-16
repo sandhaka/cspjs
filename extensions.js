@@ -28,3 +28,23 @@ if (!Array.prototype.groupBy) {
         }, []);
     }
 }
+
+if (!Array.prototype.sortAscending) {
+    Array.prototype.sortAscending = function (pred) {
+        return this.sort((a, b) => {
+            if (pred(a) === pred(b)) return 0;
+            if (pred(a) > pred(b)) return 1;
+            return -1;
+        })
+    }
+}
+
+if (!Array.prototype.sortDescending) {
+    Array.prototype.sortDescending = function (pred) {
+        return this.sort((a, b) => {
+            if (pred(a) === pred(b)) return 0;
+            if (pred(a) > pred(b)) return -1;
+            return 1;
+        })
+    }
+}

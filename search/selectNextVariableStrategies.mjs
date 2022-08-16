@@ -1,5 +1,3 @@
-require('../extensions');
-
 export const FirstUnassignedVariableStrategy = {
     get(model) {
         return model.variables.find(v => !v.IsAssigned());
@@ -26,7 +24,7 @@ export const MinimumRemainingValues = {
                 Key: v.key,
                 LegalValuesCount: legalValues
             };
-        }).groupBy('LegalValuesCount').sort((a, b) => a.key > b.key)[0].values;
+        }).groupBy('LegalValuesCount').sortAscending(a => a.key)[0].values;
         const key = vars.length > 1 ? vars[randomInt(0, vars.length - 1)].Key : vars[0].Key;
         return model.GetVariable(key);
     }
