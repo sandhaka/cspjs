@@ -1,4 +1,4 @@
-import {Model} from "../csp-model/model.mjs";
+import {Model} from "../src/csp-model/model.mjs";
 const assert = require("assert");
 
 describe('Csp model suite', () => {

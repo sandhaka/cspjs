@@ -1,4 +1,4 @@
-import {Ac3} from "../consistency/ac-3.mjs";
+import {Ac3} from "../src/consistency/ac-3.mjs";
 import {ModelFactory} from "./models";
 const assert = require("assert");
 
@@ -11,7 +11,7 @@ describe('Consistency suite', () => {
         Ac3(testModel);
 
         // Verify
-        assert.equal(true, testModel.DomainOf('SA').values.length === 1);
-        // TODO: to be continued
+        assert.equal(true, testModel.DomainOf('SA').pruned.length > 0);
+        assert.equal(true, testModel.DomainOf('T').pruned.length === 0);
     });
 });

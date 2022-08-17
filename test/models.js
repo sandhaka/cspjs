@@ -1,7 +1,7 @@
-import {Model} from "../csp-model/model.mjs";
-import {Variable} from "../csp-model/variable.mjs";
-import {Domain} from "../csp-model/domain.mjs";
-import {Relationship} from "../csp-model/relationship.mjs";
+import {Model} from "../src/csp-model/model.mjs";
+import {Variable} from "../src/csp-model/variable.mjs";
+import {Domain} from "../src/csp-model/domain.mjs";
+import {Relationship} from "../src/csp-model/relationship.mjs";
 
 export class ModelFactory {
     static AustraliaRegionsProblem() {
@@ -93,7 +93,7 @@ export class ModelFactory {
             .map(v => new Variable(v, initialConfig[v]));
         const relationships = variables.map(v => {
             return new Relationship(v.key, variables.filter(vv => {
-                return X(vv.key) === X(v.key) || Y(vv.key) === Y(v.key) || square(vv.key) === square(v.key);
+                return vv.key !== v.key && (X(vv.key) === X(v.key) || Y(vv.key) === Y(v.key) || square(vv.key) === square(v.key));
             }).map(vv => vv.key));
         });
         const domains = variables.map(v => {
