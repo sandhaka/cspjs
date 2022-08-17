@@ -6,7 +6,7 @@ import {Backtracking} from "./search/backtrack";
 import {FirstUnassignedVariableStrategy, MinimumRemainingValues} from "./search/selectNextVariableStrategies.mjs";
 import {ForwardChecking, NoInference} from "./search/inference.mjs";
 import {LeastConstrainingValuesStrategy, UnorderedDomainValuesStrategy} from "./search/domainValuesOrderStrategies.mjs";
-require('./extensions');
+
 export {
     Model, Variable, Domain, Relationship, Backtracking,
     FirstUnassignedVariableStrategy, MinimumRemainingValues,
