@@ -7,18 +7,10 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'index.js',
         globalObject: 'this',
-        libraryTarget: 'umd',
-        library: '$',
-    },
-
-    module: {
-        rules: [
-            {
-                test: /\.m?js$/,
-                exclude: /node_modules/,
-                use: "babel-loader"
-            },
-        ],
+        library: {
+            name: "csp-js",
+            type: "umd"
+        }
     },
     mode: "development"
 };
