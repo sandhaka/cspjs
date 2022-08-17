@@ -1,6 +1,6 @@
 {
   "name": "csp-js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Constraint Programming Javascript library",
   "scripts": {
     "test": "mocha --require @babel/register",
