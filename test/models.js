@@ -95,7 +95,7 @@ export class ModelFactory {
         });
         const domains = variables.map(v => {
             return new Domain(v.key, [1,2,3,4,5,6,7,8,9], [], []);
-        })
+        });
         const m = new Model(variables, domains, relationships, [
             (iDVal, jDVal) => {
                 return iDVal !== jDVal;
@@ -107,5 +107,63 @@ export class ModelFactory {
             }
         });
         return m;
+    }
+    static ReverseConwayGameOfLifeProblem() {
+        /**
+         * [[1,0,0,1,0],
+         * [0,1,1,0,0],
+         * [1,0,0,1,0],
+         * [0,0,0,0,1]]
+         */
+        const state = [
+            [1,0,0,1,0],
+            [0,1,1,0,0],
+            [1,0,0,1,0],
+            [0,0,0,0,1]
+        ];
+        state.push(Array(state[0].length).fill(0));
+        state.unshift(Array(state[0].length).fill(0));
+        state.forEach(s => {
+            s.push(0);
+            s.unshift(0);
+        });
+        const X = (v) => parseInt(v.split('.')[0]);
+        const Y = (v) => parseInt(v.split('.')[1]);
+        const neighbors = (key) => [
+            { x: X(key) - 1, y: Y(key) },
+            { x: X(key) + 1, y: Y(key) },
+            { x: X(key) - 1, y: Y(key) - 1 },
+            { x: X(key) + 1, y: Y(key) + 1 },
+            { x: X(key) + 1, y: Y(key) - 1 },
+            { x: X(key) - 1, y: Y(key) + 1 },
+            { x: X(key), y: Y(key) - 1 },
+            { x: X(key), y: Y(key) + 1 },
+        ];
+        const variables = Array(state.length)
+            .fill('')
+            .map((_, i) =>
+                Array(state[0].length)
+                    .fill('')
+                    .map((_, j) => `${i}.${j}`))
+            .flat()
+            .map(v => new Variable(v, undefined));
+        const domains = variables.map(v => {
+            return new Domain(v.key, [0, 1], [], []);
+        });
+        const relationships = variables.map(v => {
+            const rel = [];
+            for (const neighbor of neighbors(v.key)) {
+                if (neighbor.x >= 0 && neighbor.x < state.length && neighbor.y >= 0 && neighbor.y < state[0].length)
+                    rel.push(variables.find(vv => vv.key === `${neighbor.x}.${neighbor.y}`).key);
+            }
+            if (!rel.some(vv => state[X(vv)][Y(vv)] === 1))
+                return new Relationship(v.key, []);
+            return new Relationship(v.key, rel);
+        });
+        return new Model(variables, domains, relationships,[
+            (iDVal, jDVal) => {
+
+            }
+        ]);
     }
 }
