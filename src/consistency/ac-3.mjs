@@ -7,7 +7,7 @@ const revise = (model, vI, vJ) => {
         // Test i domain value
         if (domainJ.values.every(jDomainValue => {
             return !model.constraints.every(constraint => {
-                return constraint(iDomainValue, jDomainValue);
+                return constraint(model, vI.key, vJ.key, iDomainValue, jDomainValue);
             });
         })) {
             // if no value in Dj allows (di, dj) to satisfy the constraint between vI and vJ then delete Di

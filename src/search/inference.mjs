@@ -22,7 +22,7 @@ export const ForwardChecking = (model, variableKey, domainValue) => {
             continue;
         const domain = model.DomainOf(vKey);
         for (const vDomainVal of domain.values) {
-            if (!model.constraints.every(c => c(domainValue, vDomainVal))) {
+            if (!model.constraints.every(c => c(model, variableKey, vKey, domainValue, vDomainVal))) {
                 domain.Prune(vDomainVal);
                 prunedSet.add(vKey);
             }
