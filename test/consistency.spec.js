@@ -1,4 +1,4 @@
-import {Ac3} from "../src/consistency/ac-3.mjs";
+import {Ac3} from "../src";
 import {ModelFactory} from "./models";
 const assert = require("assert");
 

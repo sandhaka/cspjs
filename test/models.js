@@ -1,7 +1,4 @@
-import {Model} from "../src/csp-model/model.mjs";
-import {Variable} from "../src/csp-model/variable.mjs";
-import {Domain} from "../src/csp-model/domain.mjs";
-import {Relationship} from "../src/csp-model/relationship.mjs";
+import {Model, Variable, Domain, Relationship} from "../src";
 
 export class ModelFactory {
     static AustraliaRegionsProblem() {

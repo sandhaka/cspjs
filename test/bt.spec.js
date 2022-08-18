@@ -1,11 +1,16 @@
 // noinspection DuplicatedCode
 
 require('../src/extensions');
+import {
+    Backtracking,
+    FirstUnassignedVariableStrategy,
+    MinimumRemainingValues,
+    ForwardChecking,
+    NoInference,
+    LeastConstrainingValuesStrategy,
+    UnorderedDomainValuesStrategy
+} from "../src";
 import {CspValidator, SudokuValidator} from "./validators";
-import {Backtracking} from "../src/search/backtrack.js";
-import {FirstUnassignedVariableStrategy, MinimumRemainingValues} from "../src/search/selectNextVariableStrategies.mjs";
-import {ForwardChecking, NoInference} from "../src/search/inference.mjs";
-import {LeastConstrainingValuesStrategy, UnorderedDomainValuesStrategy} from "../src/search/domainValuesOrderStrategies.mjs";
 import {ModelFactory} from "./models";
 const assert = require("assert");
 

@@ -4,9 +4,12 @@
   "description": "Constraint Programming Javascript library",
   "scripts": {
     "test": "mocha --require @babel/register",
-    "build": "babel src -d dist"
+    "build": "babel src --config-file ./babel.config.prod.json -d dist"
   },
   "main": "./index.js",
+  "files": [
+    "./dist/**/*"
+  ],
   "keywords": [],
   "author": "Matteo Tosato",
   "license": "MIT",
