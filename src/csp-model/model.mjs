@@ -2,6 +2,13 @@ import {Variable} from "./variable.mjs";
 import {Domain} from "./domain.mjs";
 
 export class Model {
+    /**
+     * Csp Model
+     * @param variables Set of variables, {X1,...,Xn}.
+     * @param domains Set of domains, {D1, . . . , Dn}, one for each variable
+     * @param relationships Set of variable relationships
+     * @param constraints Set of constraints that specify allowable combinations of values
+     */
     constructor(variables, domains, relationships, constraints) {
         this.variables = variables;
         this.domains = domains;
