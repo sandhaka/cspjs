@@ -27,7 +27,7 @@ export class ModelFactory {
             new Relationship( 'V', [ 'SA', 'NSW' ] ),
             new Relationship( 'T', [ ] ),
         ], [
-            (iDVal, jDVal) => {
+            (model, vi, vj, iDVal, jDVal) => {
                 return iDVal !== jDVal;
             }
         ]);
@@ -97,7 +97,7 @@ export class ModelFactory {
             return new Domain(v.key, [1,2,3,4,5,6,7,8,9], [], []);
         });
         const m = new Model(variables, domains, relationships, [
-            (iDVal, jDVal) => {
+            (model, vi, vj, iDVal, jDVal) => {
                 return iDVal !== jDVal;
             }
         ]);
@@ -108,6 +108,7 @@ export class ModelFactory {
         });
         return m;
     }
+    // See: https://www.codewars.com/kata/5ea6a8502186ab001427809e
     static ReverseConwayGameOfLifeProblem() {
         /**
          * [[1,0,0,1,0],
@@ -161,7 +162,7 @@ export class ModelFactory {
             return new Relationship(v.key, rel);
         });
         return new Model(variables, domains, relationships,[
-            (iDVal, jDVal) => {
+            (model, vi, vj, iDVal, jDVal) => {
 
             }
         ]);

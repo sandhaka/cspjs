@@ -3,7 +3,7 @@ import {ModelFactory} from "./models";
 const assert = require("assert");
 
 describe('Consistency suite', () => {
-    it('Should apply AC3 to \'Australia regions problem\'', () => {
+    it('Should apply AC3 to "Australia regions problem"', () => {
         // Setup test model
         const testModel = ModelFactory.AustraliaRegionsProblem();
 

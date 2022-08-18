@@ -7,7 +7,8 @@ export class Model {
      * @param variables Set of variables, {X1,...,Xn}.
      * @param domains Set of domains, {D1, . . . , Dn}, one for each variable
      * @param relationships Set of variable relationships
-     * @param constraints Set of constraints that specify allowable combinations of values
+     * @param constraints Set of constraints that specify allowable combinations of values:
+     * Constraint is a function like: fn(model: Model, vKey1: string, vKey2: string, vDomainValue1: T, vDomainValue2: T)
      */
     constructor(variables, domains, relationships, constraints) {
         this.variables = variables;
@@ -98,7 +99,8 @@ export class Model {
             const variable = this.GetVariable(relationships.values[j]);
             if (!variable.IsAssigned())
                 continue;
-            c += this.constraints.every(c => c(domainValue, variable.value)) ? 0 : 1;
+            c += this.constraints.every(c =>
+                c(this, variableKey, relationships.values[j].key, variable.value, domainValue)) ? 0 : 1;
         }
         return c;
     }
