@@ -3,7 +3,7 @@
   "version": "1.0.7",
   "description": "Constraint Programming Javascript library",
   "scripts": {
-    "test": "mocha --require @babel/register",
+    "test": "nyc --reporter=text-summary mocha --require @babel/register",
     "build": "babel src --config-file ./babel.config.prod.json -d dist"
   },
   "main": "./index.js",
@@ -20,6 +20,8 @@
     "@babel/register": "^7.18.6",
     "babel-loader": "^8.2.5",
     "babel-plugin-module-extension": "^0.1.3",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "babel-plugin-istanbul": "^6.1.1",
+    "nyc": "^15.1.0"
   }
 }

@@ -3,6 +3,7 @@
   "plugins": [
     ["module-extension", {
       "mjs": "js"
-    }]
+    }],
+    ["istanbul"]
   ]
 }
