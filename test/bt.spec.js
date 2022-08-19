@@ -8,7 +8,7 @@ import {
     ForwardChecking,
     NoInference,
     LeastConstrainingValuesStrategy,
-    UnorderedDomainValuesStrategy
+    UnorderedDomainValuesStrategy, Ac3
 } from "../src";
 import {CspValidator, SudokuValidator} from "./validators";
 import {ModelFactory} from "./models";
@@ -96,6 +96,8 @@ describe('Backtrack search suite', () => {
         // Setup
         const m = ModelFactory.ReverseConwayGameOfLifeProblem();
         // Act
+        Ac3(m);
+        //const bt = Backtracking(m, FirstUnassignedVariableStrategy, UnorderedDomainValuesStrategy, NoInference);
 
         console.log(JSON.stringify(m));
     });

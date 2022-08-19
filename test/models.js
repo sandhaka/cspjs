@@ -110,17 +110,11 @@ export class ModelFactory {
     }
     // See: https://www.codewars.com/kata/5ea6a8502186ab001427809e
     static ReverseConwayGameOfLifeProblem() {
-        /**
-         * [[1,0,0,1,0],
-         * [0,1,1,0,0],
-         * [1,0,0,1,0],
-         * [0,0,0,0,1]]
-         */
         const state = [
-            [1,0,0,1,0],
-            [0,1,1,0,0],
-            [1,0,0,1,0],
-            [0,0,0,0,1]
+            [0,0,0,0],
+            [0,1,1,0],
+            [0,1,1,0],
+            [0,0,0,0]
         ];
         state.push(Array(state[0].length).fill(0));
         state.unshift(Array(state[0].length).fill(0));
@@ -157,13 +151,26 @@ export class ModelFactory {
                 if (neighbor.x >= 0 && neighbor.x < state.length && neighbor.y >= 0 && neighbor.y < state[0].length)
                     rel.push(variables.find(vv => vv.key === `${neighbor.x}.${neighbor.y}`).key);
             }
-            if (!rel.some(vv => state[X(vv)][Y(vv)] === 1))
-                return new Relationship(v.key, []);
             return new Relationship(v.key, rel);
         });
         return new Model(variables, domains, relationships,[
-            (model, vi, vj, iDVal, jDVal) => {
-
+            (model, keyi, keyj, iDVal, jDVal) => {
+                const nexti = state[X(keyi)][Y(keyj)];
+                const n = model.RelationshipsOf(keyi).values
+                    .filter(v => v !== keyj)
+                    .map(v => model.GetVariable(v).value)
+                    .filter(v => v !== undefined && v !== 0)
+                    .length + jDVal;
+                if (iDVal === 0) {
+                    if (nexti === 1)
+                        return n === 3;
+                    if (nexti === 0)
+                        return n < 2;
+                }
+                if (nexti === 1)
+                    return 2 <= n && n < 3;
+                // if (nexti === 0)
+                return 3 < n || n < 2;
             }
         ]);
     }
