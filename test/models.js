@@ -125,13 +125,21 @@ export class ModelFactory {
             return m;
         };
         const solution = buildMap(
-`0 1 x
-0 1 1`);
+`1 x 1 1 x 1
+2 2 2 1 2 2
+2 x 2 0 1 x
+2 x 2 1 2 2
+1 1 1 1 x 1
+0 0 0 1 1 1`);
         // Input:
         const board =
-`0 ? ?
-0 ? ?`;
-        let minesLeft = 1;
+`? ? ? ? ? ?
+? ? ? ? ? ?
+? ? ? 0 ? ?
+? ? ? ? ? ?
+? ? ? ? ? ?
+0 0 0 ? ? ?`;
+        let minesLeft = 6;
         const getNeighbors = (x, y, width, height) => {
             const neighborsCells = [
                 { x: x - 1, y: y },
