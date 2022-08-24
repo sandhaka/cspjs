@@ -100,7 +100,7 @@ export class Model {
             if (!variable.IsAssigned())
                 continue;
             c += this.constraints.every(c =>
-                c(this, variableKey, relationships.values[j].key, variable.value, domainValue)) ? 0 : 1;
+                c(this, variableKey, variable.key, domainValue, variable.value)) ? 0 : 1;
         }
         return c;
     }

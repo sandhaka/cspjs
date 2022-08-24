@@ -12,7 +12,7 @@
 export const Backtracking = (model, nextVar, domainValuesSort, inference) => {
     if (model.IsResolved())
         return true;
-    const variable = nextVar.get(model);
+    const variable = nextVar.get(model); // Next unassigned variable
     for (const value of domainValuesSort.get(model, variable.key)) {
         if (model.Conflicts(variable.key, value) === 0) {
             model.Assign(variable.key, value);

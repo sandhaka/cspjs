@@ -99,4 +99,32 @@ describe('Backtrack search suite', () => {
         assert.equal(true, SudokuValidator(m4));
         assert.equal(true, CspValidator(m4));
     });
+    it('Should resolve minesweeper board', () => {
+
+        /**
+         * See:
+         * https://www.codewars.com/kata/57ff9d3b8f7dda23130015fa
+         */
+
+        // Setup
+        const model = ModelFactory.MineSweeperBoardProblem();
+        // Act
+        const result = Backtracking(model, FirstUnassignedVariableStrategy, UnorderedDomainValuesStrategy, NoInference);
+        // Verify
+        assert.equal(true, result);
+        const variables = model.variables.map(v => v.value.toString());
+        const solution = [
+            ['1','x','1','1','x','1'],
+            ['2','2','2','1','2','2'],
+            ['2','x','2','0','1','x'],
+            ['2','x','2','1','2','2'],
+            ['1','1','1','1','x','1'],
+            ['0','0','0','1','1','1'],
+        ];
+        for (let r = 0; r < 5; r++) {
+            for (let c = 0; c < 6; c++) {
+                assert.equal(solution[r][c], variables.shift());
+            }
+        }
+    });
 });

@@ -5,11 +5,19 @@ const revise = (model, vI, vJ) => {
     for (let di = 0; di < domainI.values.length; di++) {
         const iDomainValue = domainI.values[di];
         // Test i domain value
-        if (domainJ.values.every(jDomainValue => {
-            return !model.constraints.every(constraint => {
-                return constraint(model, vI.key, vJ.key, iDomainValue, jDomainValue);
+        let test = true;
+        if (model.GetVariable(vJ.key).IsAssigned()) {
+            test = !model.constraints.every(constraint => {
+                return constraint(model, vI.key, vJ.key, iDomainValue, model.GetVariable(vJ.key).value);
             });
-        })) {
+        } else {
+            test = domainJ.values.every(jDomainValue => {
+                return !model.constraints.every(constraint => {
+                    return constraint(model, vI.key, vJ.key, iDomainValue, jDomainValue);
+                });
+            })
+        }
+        if (test) {
             // if no value in Dj allows (di, dj) to satisfy the constraint between vI and vJ then delete Di
             domainI.Prune(iDomainValue);
             revise = true;
