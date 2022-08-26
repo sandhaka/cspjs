@@ -15,7 +15,7 @@ const revise = (model, vI, vJ) => {
                 return !model.constraints.every(constraint => {
                     return constraint(model, vI.key, vJ.key, iDomainValue, jDomainValue);
                 });
-            })
+            });
         }
         if (test) {
             // if no value in Dj allows (di, dj) to satisfy the constraint between vI and vJ then delete Di
