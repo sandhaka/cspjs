@@ -110,6 +110,18 @@ export class ModelFactory {
     }
     static MineSweeperBoardProblem() {
         //# region [ Support ]
+        const print = (map) => {
+            let row = '';
+            for (let i = 0; i < map.length; i++) {
+                for (let j = 0; j < map[i].length; j++) {
+                    row += (j === 0 ? '' + map[i][j] : ' ' + map[i][j]);
+                    if (i === map.length - 1 && j === map[i].length -1)
+                        return row;
+                }
+                row += '\n';
+            }
+            return row;
+        };
         const buildMap = (map) => {
             const m = [];
             for (let i = 0; i < map.length;) {
@@ -125,21 +137,39 @@ export class ModelFactory {
             return m;
         };
         const solution = buildMap(
-`1 x 1 1 x 1
-2 2 2 1 2 2
-2 x 2 0 1 x
-2 x 2 1 2 2
-1 1 1 1 x 1
-0 0 0 1 1 1`);
+`0 0 0 0 0 0 0 0 0 0 0 0 1 x 1 0 0 0 0 0 0 0 0 1 1 1 1 1 1 0
+0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1 1 1 0 0 0 0 2 x 2 1 x 1 0
+1 1 1 0 0 0 0 1 1 1 0 0 0 0 1 1 2 x 1 0 0 0 0 2 x 2 1 1 1 0
+1 x 1 1 1 1 0 1 x 2 1 1 0 0 1 x 2 1 1 0 0 0 0 1 1 1 0 0 0 0
+1 2 2 3 x 2 0 1 1 2 x 1 0 0 1 2 2 1 0 0 0 0 0 1 1 1 0 0 1 1
+0 1 x 3 x 2 0 0 0 1 1 1 0 1 2 3 x 1 0 0 0 0 0 1 x 1 0 0 1 x
+0 1 1 3 3 3 2 1 1 1 1 2 1 2 x x 2 2 1 1 0 0 0 1 1 1 1 1 2 1
+0 0 0 1 x x 2 x 1 1 x 2 x 2 3 3 3 2 x 1 0 1 1 1 0 0 2 x 2 0
+0 1 1 2 2 2 3 2 2 1 1 2 1 1 1 x 2 x 2 1 0 1 x 1 0 0 2 x 2 0
+1 2 x 1 0 1 2 x 1 0 0 0 1 1 2 2 3 2 1 0 0 1 1 1 0 0 1 1 1 0
+1 x 2 1 0 1 x 3 2 1 0 0 1 x 1 1 x 2 1 0 0 0 1 1 1 0 0 0 0 0
+1 1 2 1 2 2 2 2 x 1 0 0 1 1 1 1 2 x 1 0 0 0 1 x 2 1 0 0 0 0
+1 1 2 x 2 x 1 1 1 1 0 0 0 0 1 1 2 1 1 0 0 0 1 2 x 1 0 0 0 0
+1 x 3 2 2 1 1 0 0 1 1 1 0 0 1 x 1 0 0 0 0 0 1 2 2 1 0 0 0 0
+1 2 x 1 0 0 0 0 0 1 x 1 0 0 1 1 1 0 0 0 0 0 1 x 1 0 0 0 0 0`);
         // Input:
         const board =
-`? ? ? ? ? ?
-? ? ? ? ? ?
-? ? ? 0 ? ?
-? ? ? ? ? ?
-? ? ? ? ? ?
-0 0 0 ? ? ?`;
-        let minesLeft = 6;
+`0 0 0 0 0 0 0 0 0 0 0 0 ? ? ? 0 0 0 0 0 0 0 0 ? ? ? ? ? ? 0
+0 0 0 0 0 0 0 0 0 0 0 0 ? ? ? 0 ? ? ? 0 0 0 0 ? ? ? ? ? ? 0
+? ? ? 0 0 0 0 ? ? ? 0 0 0 0 ? ? ? ? ? 0 0 0 0 ? ? ? ? ? ? 0
+? ? ? ? ? ? 0 ? ? ? ? ? 0 0 ? ? ? ? ? 0 0 0 0 ? ? ? 0 0 0 0
+? ? ? ? ? ? 0 ? ? ? ? ? 0 0 ? ? ? ? 0 0 0 0 0 ? ? ? 0 0 ? ?
+0 ? ? ? ? ? 0 0 0 ? ? ? 0 ? ? ? ? ? 0 0 0 0 0 ? ? ? 0 0 ? ?
+0 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 0 0 0 ? ? ? ? ? ? ?
+0 0 0 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 0 ? ? ? 0 0 ? ? ? 0
+0 ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 0 ? ? ? 0 0 ? ? ? 0
+? ? ? ? 0 ? ? ? ? 0 0 0 ? ? ? ? ? ? ? 0 0 ? ? ? 0 0 ? ? ? 0
+? ? ? ? 0 ? ? ? ? ? 0 0 ? ? ? ? ? ? ? 0 0 0 ? ? ? 0 0 0 0 0
+? ? ? ? ? ? ? ? ? ? 0 0 ? ? ? ? ? ? ? 0 0 0 ? ? ? ? 0 0 0 0
+? ? ? ? ? ? ? ? ? ? 0 0 0 0 ? ? ? ? ? 0 0 0 ? ? ? ? 0 0 0 0
+? ? ? ? ? ? ? 0 0 ? ? ? 0 0 ? ? ? 0 0 0 0 0 ? ? ? ? 0 0 0 0
+? ? ? ? 0 0 0 0 0 ? ? ? 0 0 ? ? ? 0 0 0 0 0 ? ? ? 0 0 0 0 0`;
+        let minesLeft = solution.flat().filter(x => x === 'x').length;
         const getNeighbors = (x, y, width, height) => {
             const neighborsCells = [
                 { x: x - 1, y: y },
@@ -201,6 +231,8 @@ export class ModelFactory {
         //# endregion
         const map = buildMap(board);
         const _ = openSecurePlaces(map);
+        console.log(print(map));
+        console.log('\n\n');
 
         const _x = (v) => parseInt(v.split('.')[0]);
         const _y = (v) => parseInt(v.split('.')[1]);
@@ -229,7 +261,8 @@ export class ModelFactory {
             for (let i = 0; i <= n; i++) d.push(''+i);
             return new Domain(v.key, [...d, ...['x']], [], []);
         });
-        return new Model(variables, domains, relationships,[
+        const model = new Model(variables, domains, relationships,[
+            (model, vi, vj, iDVal, jDVal) => !(minesLeft === 0 && iDVal === 'x'),
             // Checking locally
             (model, vi, vj, iDVal, jDVal) => {
                 // If there is a mine, ok if every assigned neighbor is not 0
@@ -257,5 +290,15 @@ export class ModelFactory {
                 });
             },
         ]);
+        // Define increment fn of assigned mines
+        model.postAssignmentFn = (key, value) => {
+            if (value === 'x')
+                minesLeft--;
+        };
+        model.preRemoveAssignmentFn = (key) => {
+            if (model.GetVariable(key).value === 'x')
+                minesLeft++;
+        };
+        return model;
     }
 }

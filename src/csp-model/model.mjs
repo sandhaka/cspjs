@@ -9,12 +9,16 @@ export class Model {
      * @param relationships Set of variable relationships
      * @param constraints Set of constraints that specify allowable combinations of values:
      * Constraint is a function like: fn(model: Model, vKey1: string, vKey2: string, vDomainValue1: T, vDomainValue2: T)
+     * @param postAssignmentFn Custom action post-assignment
+     * @param preRemoveAssignmentFn Custom action pre remove assignment
      */
-    constructor(variables, domains, relationships, constraints) {
+    constructor(variables, domains, relationships, constraints, postAssignmentFn, preRemoveAssignmentFn) {
         this.variables = variables;
         this.domains = domains;
         this.relationships = relationships;
         this.constraints = constraints;
+        this.postAssignmentFn = postAssignmentFn;
+        this.preRemoveAssignmentFn = preRemoveAssignmentFn;
     }
 
     /**
@@ -65,6 +69,8 @@ export class Model {
     Assign(key, value) {
         const variable = this.GetVariable(key);
         variable.value = value;
+        if (this.postAssignmentFn)
+            this.postAssignmentFn(key, value);
     }
 
     /**
@@ -73,6 +79,8 @@ export class Model {
      * @constructor
      */
     RemoveAssignment(key) {
+        if (this.preRemoveAssignmentFn)
+            this.preRemoveAssignmentFn(key);
         this.GetVariable(key).value = undefined;
     }
 
