@@ -101,6 +101,19 @@ describe('Backtrack search suite', () => {
     });
     it('Should resolve minesweeper board', () => {
 
+        const print = (map) => {
+            let row = '';
+            for (let i = 0; i < map.length; i++) {
+                for (let j = 0; j < map[i].length; j++) {
+                    row += (j === 0 ? '' + map[i][j] : ' ' + map[i][j]);
+                    if (i === map.length - 1 && j === map[i].length -1)
+                        return row;
+                }
+                row += '\n';
+            }
+            return row;
+        };
+
         /**
          * See:
          * https://www.codewars.com/kata/57ff9d3b8f7dda23130015fa
@@ -112,19 +125,19 @@ describe('Backtrack search suite', () => {
         const result = Backtracking(model, FirstUnassignedVariableStrategy, UnorderedDomainValuesStrategy, NoInference);
         // Verify
         assert.equal(true, result);
-        const variables = model.variables.map(v => v.value.toString());
-        const solution = [
-            ['1','x','1','1','x','1'],
-            ['2','2','2','1','2','2'],
-            ['2','x','2','0','1','x'],
-            ['2','x','2','1','2','2'],
-            ['1','1','1','1','x','1'],
-            ['0','0','0','1','1','1'],
-        ];
-        for (let r = 0; r < 5; r++) {
-            for (let c = 0; c < 6; c++) {
-                assert.equal(solution[r][c], variables.shift());
+        if (!result) {
+            return '?';
+        }
+        const resolvedValues = model.variables.map(v => v.value.toString());
+        const finalMap = Array(15);
+        for (let r = 0; r < 15; r++) {
+            finalMap[r] = Array(30);
+            for (let c = 0; c < 30; c++) {
+                finalMap[r][c] = resolvedValues.shift();
             }
         }
+
+        console.log("Solution found: \n");
+        console.log(print(finalMap));
     });
 });
