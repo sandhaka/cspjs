@@ -1,5 +1,6 @@
 Csp-Js
 ---
+**This library is for educational purposes only. it is suboptimal and not ready for production.**
 #### Means of CSP
 > A way to solve a wide variety of problems more efficiently: 
 > A factored representation for each state: a set of variables, each of which has a value. 
